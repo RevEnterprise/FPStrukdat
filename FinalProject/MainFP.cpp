@@ -326,7 +326,6 @@ void CompareSearch(BPlusTree<string>& tree, string path, HashMap& map){
 
 
 void datasearch(BPlusTree<string>& tree, string value){
-        // chrono start
         auto start_bpt = chrono::high_resolution_clock::now();
 
         if (tree.search(value)) {
@@ -334,11 +333,8 @@ void datasearch(BPlusTree<string>& tree, string value){
         } else {
             cout << value <<  " Data Not Found\n";
         }
-
-        // chrono end
         auto end_bpt = chrono::high_resolution_clock::now();
         auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
-        // clock end
         cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " microseconds\n";
 }
 
@@ -398,8 +394,6 @@ void sampledata(BPlusTree<string>& tree, string path, string& first, string& mid
 
 }
 
-
-//beneran dah ini?? secara logika yang paling dikanan si, tapi emang bervariasi
 string getRightmostKey(BPlusTree<string>& tree) {
     auto node = tree.root;
     if (!node) return "";
