@@ -79,9 +79,6 @@ void CompareInsertDelete(BPlusTree<string>& tree) {
         if (tree.search(input)) {
             cout << input << " already exists.\n";
         } else {
-                // clock start
-            clock_t time_req;
-            time_req = clock();
             // chrono start
             auto start_bpt = chrono::high_resolution_clock::now();
 
@@ -91,12 +88,8 @@ void CompareInsertDelete(BPlusTree<string>& tree) {
             auto end_bpt = chrono::high_resolution_clock::now();
             auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
 
-            // clock end
-            time_req = clock() - time_req;
-
             cout << "Data successfully inserted.\n";
-            cout << "Time needed insert data in B+ tree (Chrono) :" << dur_bpt << " 탎\n";
-            cout << "Time needed insert data in B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
+            cout << "Time needed insert data in B+ tree (Chrono) :" << dur_bpt << " microseconds \n";
         }
 
     } else if (pilihan == "2") {
@@ -106,24 +99,14 @@ void CompareInsertDelete(BPlusTree<string>& tree) {
         if (!tree.search(input)) {
             cout << input << " does not exist.\n";
         } else {
-            // clock start
-            clock_t time_req;
-            time_req = clock();
-            // chrono start
+
             auto start_bpt = chrono::high_resolution_clock::now();
-
             tree.remove(input);
-
-            // chrono end
             auto end_bpt = chrono::high_resolution_clock::now();
             auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
 
-            // clock end
-            time_req = clock() - time_req;
-
             cout << "Data successfully removed.\n";
-            cout << "Time needed remove data in B+ tree (Chrono) :" << dur_bpt << " 탎\n";
-            cout << "Time needed remove data in B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
+            cout << "Time needed remove data in B+ tree (Chrono) :" << dur_bpt << " microseconds \n";
         }
 
     } else {
@@ -201,11 +184,6 @@ void Update(int child, BPlusTree<string>& tree, string path){
         cout << "\n-- Updating in Progress --\n";
 
         tree = BPlusTree<string>(child);
-
-        // clock start
-        clock_t time_req;
-        time_req = clock();
-        // chrono start
         auto start_bpt = chrono::high_resolution_clock::now();
 
         ifstream f(path);
@@ -223,8 +201,6 @@ void Update(int child, BPlusTree<string>& tree, string path){
         auto end_bpt = chrono::high_resolution_clock::now();
         auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
 
-        // clock end
-        time_req = clock() - time_req;
 
         f.clear();
         f.seekg(0, ios::beg);
@@ -236,8 +212,7 @@ void Update(int child, BPlusTree<string>& tree, string path){
 
         size_t treeMemory = tree.estimateMemory();
         cout << "Estimated B+ Tree Structure Memory: " << treeMemory << " byte\n";
-        cout << "Time needed B+ tree (Chrono) :" << dur_bpt << " 탎\n";
-        cout << "Time needed B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
+        cout << "Time needed B+ tree (Chrono) :" << dur_bpt << " microseconds \n";
         cout << "\nRough Memory Estimate for the Data: " << totalStringBytes << " byte\n";
         cout << "Successfully Update!!\n";
 
@@ -285,9 +260,7 @@ void CompareSearch(BPlusTree<string>& tree, string path){
 
 
 void datasearch(BPlusTree<string>& tree, string value){
-        clock_t time_req;
-        time_req = clock();
-        // chrono start
+
         auto start_bpt = chrono::high_resolution_clock::now();
 
         if (tree.search(value)) {
@@ -299,11 +272,7 @@ void datasearch(BPlusTree<string>& tree, string value){
         // chrono end
         auto end_bpt = chrono::high_resolution_clock::now();
         auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
-        // clock end
-        time_req = clock() - time_req;
-
-        cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " 탎\n";
-        cout << "Time needed to find " << value << " in B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
+        cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " microseconds \n";
 }
 
 
