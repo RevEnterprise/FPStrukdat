@@ -74,9 +74,7 @@ void BPlusTree<T>::remove(Node* node, T key)
         }
     }
     else {
-        int idx = lower_bound(node->keys.begin(),
-                              node->keys.end(), key)
-                  - node->keys.begin();
+        int idx = lower_bound(node->keys.begin(), node->keys.end(), key) - node->keys.begin();
         if (idx < node->keys.size()
             && node->keys[idx] == key) {
             if (node->children[idx]->keys.size() >= t) {
