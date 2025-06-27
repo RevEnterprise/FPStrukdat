@@ -246,13 +246,9 @@ void Update(int child, BPlusTree<string>& tree, string path){
     }
 }
 
-
 void CompareSearch(BPlusTree<string>& tree, string path){
     string first, middle, last, best, worst;
-
-
     string inputC;
-
     cout << "\n---------- Compare Time Search Center ----------\n";
     cout << "Current data used: " << path << endl;
     if (tree.root == nullptr || tree.root->keys.empty()) {
@@ -260,7 +256,10 @@ void CompareSearch(BPlusTree<string>& tree, string path){
         return;
     }
     sampledata(tree, path, first, middle, last, best, worst);
-    cout << "Do you wish to compare time search?? (Y/other): ";
+    cout << "\nEnter the option to be used:\n";
+    cout << "1. Predetermined Data.\n";
+    cout << "2. Input Data.txt\n";
+    cout << "Choose option (1/2): ";
     cin >> inputC;
 
     if (inputC == "1") {
@@ -269,15 +268,15 @@ void CompareSearch(BPlusTree<string>& tree, string path){
         datasearch(tree, last);
         datasearch(tree, best);
         datasearch(tree, worst);
-
     } else if (inputC == "2") {
+        cout << "Input the data: \n";
         string dayacari;
+        cin.ignore(); // jaga jaga
         getline(cin, dayacari);
         datasearch(tree, dayacari);
     } else {
         cout << "Incorrect input - Existing..." << endl;
     }
-
 }
 
 
@@ -326,7 +325,7 @@ void sampledata(BPlusTree<string>& tree, string path, string& first, string& mid
 
     best = tree.root->keys.front();
     worst = getRightmostKey(tree) + "~";
-    cout << "Simple Data Preview:\n";
+    cout << "Predetermined Data Preview:\n";
     cout << "First in Data  : " << first << endl;
     cout << "Middle in Data : " << middle << endl;
     cout << "Last in Data  : " << last << endl;
