@@ -93,7 +93,7 @@ void CompareInsertDelete(BPlusTree<string>& tree, HashMap& map) {
         getline(cin, input);
 
         if (tree.search(input)) {
-            cout << input << " already exists.\n";
+            cout << input << " does not exist.\n";
         } else {
             // hashmap
             auto start = chrono::high_resolution_clock::now();
@@ -101,21 +101,21 @@ void CompareInsertDelete(BPlusTree<string>& tree, HashMap& map) {
             auto end = chrono::high_resolution_clock::now();
             auto duration = chrono::duration_cast<chrono::duration<double, micro>>(end - start).count();
             cout << "Data successfully inserted in hashmap.\n";
-            cout << "Time needed insert data in Hashmap (Chrono) :" << duration << " microseconds\n";
+            cout << "Time needed insert data in Hashmap (Chrono) :" << duration << " µs\n";
             // B+
             auto start_bpt = chrono::high_resolution_clock::now();
             tree.insert(input);
             auto end_bpt = chrono::high_resolution_clock::now();
             auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
             cout << "Data successfully inserted.\n";
-            cout << "Time needed insert data in B+ tree (Chrono) :" << dur_bpt << " microseconds\n";
+            cout << "Time needed insert data in B+ tree (Chrono) :" << dur_bpt << " µs\n";
         }
 
     } else if (pilihan == "2") {
         cout << "Input the data you want to remove: ";
         getline(cin, input);
 
-        if (!tree.search(input)) {
+        if (!map.search(input) && !tree.search(input)) {
             cout << input << " does not exist.\n";
         } else {
             // hashmap
@@ -124,14 +124,14 @@ void CompareInsertDelete(BPlusTree<string>& tree, HashMap& map) {
             auto end = chrono::high_resolution_clock::now();
             auto duration = chrono::duration_cast<chrono::duration<double, micro>>(end - start).count();
             cout << "Data successfully removed in hashmap.\n";
-            cout << "Time needed remove data in Hashmap (Chrono) :" << duration << " microseconds\n";
+            cout << "Time needed remove data in Hashmap (Chrono) :" << duration << " µs\n";
             // B+
             auto start_bpt = chrono::high_resolution_clock::now();
             tree.remove(input);
             auto end_bpt = chrono::high_resolution_clock::now();
             auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
             cout << "Data successfully removed in b+ tree.\n";
-            cout << "Time needed remove data in B+ tree (Chrono) :" << dur_bpt << " microseconds\n";
+            cout << "Time needed remove data in B+ tree (Chrono) :" << dur_bpt << " µs\n";
         }
 
     } else if (pilihan == "3") {
@@ -145,7 +145,7 @@ void CompareInsertDelete(BPlusTree<string>& tree, HashMap& map) {
         map.update(input, newinput);
         auto end = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::duration<double, micro>>(end - start).count();
-        cout << "Time needed to update data in hashmap (Chrono) :" << duration << " microseconds\n";
+        cout << "Time needed to update data in hashmap (Chrono) :" << duration << " µs\n";
 
         if (!tree.search(input)) {
             cout << input << " does not exist.\n";
@@ -157,7 +157,7 @@ void CompareInsertDelete(BPlusTree<string>& tree, HashMap& map) {
             auto end_bpt = chrono::high_resolution_clock::now();
             auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
             cout << "Data successfully updated in b+ tree.\n";
-            cout << "Time needed to update data in B+ tree (Chrono) :" << dur_bpt << " microseconds\n";
+            cout << "Time needed to update data in B+ tree (Chrono) :" << dur_bpt << " µs\n";
         }
 
     } else {
@@ -265,7 +265,7 @@ void Update(int child, BPlusTree<string>& tree, string path, HashMap& map){
         }
 
         size_t treeMemory = tree.estimateMemory();
-        cout << "Time needed B+ tree (Chrono) :" << dur_bpt << " microseconds\n";
+        cout << "Time needed B+ tree (Chrono) :" << dur_bpt << " µs\n";
         cout << "Estimated B+ Tree Structure Memory: " << treeMemory << " byte\n";
 
         cout << "\nRough Memory Estimate for the Data: " << totalStringBytes << " byte\n";
@@ -326,6 +326,7 @@ void CompareSearch(BPlusTree<string>& tree, string path, HashMap& map){
 
 
 void datasearch(BPlusTree<string>& tree, string value){
+        // chrono start
         auto start_bpt = chrono::high_resolution_clock::now();
 
         if (tree.search(value)) {
@@ -333,9 +334,12 @@ void datasearch(BPlusTree<string>& tree, string value){
         } else {
             cout << value <<  " Data Not Found\n";
         }
+
+        // chrono end
         auto end_bpt = chrono::high_resolution_clock::now();
         auto dur_bpt = chrono::duration_cast<chrono::microseconds>(end_bpt - start_bpt).count();
-        cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " microseconds\n";
+        // clock end
+        cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " µs\n";
 }
 
 void searchWithPreciseTime(HashMap& map, const string& value) {
@@ -352,11 +356,11 @@ void searchWithPreciseTime(HashMap& map, const string& value) {
     bool found = map.search(value);
     if (found){
         cout << value << " Data Found\n";
-        cout << "Time needed to find " << value << " in hashmap :" << duration / repeat << " microseconds\n";
+        cout << "Time needed to find " << value << " in hashmap :" << duration / repeat << " µs\n";
     }
     else{
         cout << value <<  " Data Not Found \n";
-        cout << "Time needed to find " << value << " in hashmap :" << duration / repeat << " microseconds\n";
+        cout << "Time needed to find " << value << " in hashmap :" << duration / repeat << " µs\n";
     }
 }
 
@@ -394,6 +398,8 @@ void sampledata(BPlusTree<string>& tree, string path, string& first, string& mid
 
 }
 
+
+//beneran dah ini?? secara logika yang paling dikanan si, tapi emang bervariasi
 string getRightmostKey(BPlusTree<string>& tree) {
     auto node = tree.root;
     if (!node) return "";
@@ -428,7 +434,7 @@ void loadFromFile(HashMap& map, const string& path) {
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::duration<double, micro>>(end - start).count();
 
-    cout << "Time needed HashMap (Chrono) :" << duration << " microseconds\n";
+    cout << "Time needed HashMap (Chrono) :" << duration << " µs\n";
 
 }
 
