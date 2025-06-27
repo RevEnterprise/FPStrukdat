@@ -434,7 +434,7 @@ void loadFromFile(HashMap& map, const string& path) {
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::duration<double, micro>>(end - start).count();
 
-    cout << "Time needed HashMap (Chrono) :" << duration << " µs\n";
+    cout << "Time needed HashMap (Chrono) :" << duration << " microseconds \n";
 
 }
 
