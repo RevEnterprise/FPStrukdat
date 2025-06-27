@@ -95,7 +95,7 @@ void CompareInsertDelete(BPlusTree<string>& tree) {
             time_req = clock() - time_req;
 
             cout << "Data successfully inserted.\n";
-            cout << "Time needed insert data in B+ tree (Chrono) :" << dur_bpt << " µs\n";
+            cout << "Time needed insert data in B+ tree (Chrono) :" << dur_bpt << " Âµs\n";
             cout << "Time needed insert data in B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
         }
 
@@ -122,7 +122,7 @@ void CompareInsertDelete(BPlusTree<string>& tree) {
             time_req = clock() - time_req;
 
             cout << "Data successfully removed.\n";
-            cout << "Time needed remove data in B+ tree (Chrono) :" << dur_bpt << " µs\n";
+            cout << "Time needed remove data in B+ tree (Chrono) :" << dur_bpt << " Âµs\n";
             cout << "Time needed remove data in B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
         }
 
@@ -236,7 +236,7 @@ void Update(int child, BPlusTree<string>& tree, string path){
 
         size_t treeMemory = tree.estimateMemory();
         cout << "Estimated B+ Tree Structure Memory: " << treeMemory << " byte\n";
-        cout << "Time needed B+ tree (Chrono) :" << dur_bpt << " µs\n";
+        cout << "Time needed B+ tree (Chrono) :" << dur_bpt << " Âµs\n";
         cout << "Time needed B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
         cout << "\nRough Memory Estimate for the Data: " << totalStringBytes << " byte\n";
         cout << "Successfully Update!!\n";
@@ -263,17 +263,20 @@ void CompareSearch(BPlusTree<string>& tree, string path){
     cout << "Do you wish to compare time search?? (Y/other): ";
     cin >> inputC;
 
-    if (inputC == "Y" || inputC == "y") {
+    if (inputC == "1") {
         datasearch(tree, first);
         datasearch(tree, middle);
         datasearch(tree, last);
         datasearch(tree, best);
         datasearch(tree, worst);
 
+    } else if (inputC == "2") {
+        string dayacari;
+        getline(cin, dayacari);
+        datasearch(tree, dayacari);
     } else {
-        cout << "Existing..." << endl;
+        cout << "Incorrect input - Existing..." << endl;
     }
-
 
 }
 
@@ -296,7 +299,7 @@ void datasearch(BPlusTree<string>& tree, string value){
         // clock end
         time_req = clock() - time_req;
 
-        cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " µs\n";
+        cout << "Time needed to find " << value << " in B+ Tree (Chrono) :" << dur_bpt << " Âµs\n";
         cout << "Time needed to find " << value << " in B+ Tree (clock_t) :" << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
 }
 
